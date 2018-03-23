@@ -42,7 +42,12 @@ public class CategFragment extends Fragment implements CategoryView{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new CategoryPresenterImpl(this);
-        presenter.getCategory();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.getCategory();
+            }
+        }).start();
         list = new ArrayList<>();
         myAdapter = new MyAdapter();
     }
@@ -58,7 +63,6 @@ public class CategFragment extends Fragment implements CategoryView{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Category c = list.get(position);
                 String cidname = c.getName();
-                Log.d("222",cidname);
                 Intent intent =new Intent(getActivity(), CategActivity.class);
                 intent.putExtra("cidname",cidname);
                 getActivity().startActivity(intent);

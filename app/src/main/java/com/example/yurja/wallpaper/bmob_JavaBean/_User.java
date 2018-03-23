@@ -1,16 +1,16 @@
 package com.example.yurja.wallpaper.bmob_JavaBean;
 
-import cn.bmob.v3.BmobObject;
+
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by yurja on 2018/3/16.
  */
 
-public class _User extends BmobObject {
+public class _User extends BmobUser {
 
-    private String username;
-    private String password;
+
     private BmobFile picture;
 
 
@@ -22,19 +22,5 @@ public class _User extends BmobObject {
         this.picture = picture;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

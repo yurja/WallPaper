@@ -1,7 +1,7 @@
 package com.example.yurja.wallpaper.wallpaper;
 
 /**
- * Created by MM on 2018/3/17.
+ * Created by yurja on 2018/3/17.
  */
 
 public interface WallPaperPresenter {

@@ -5,7 +5,7 @@ import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
 import java.util.List;
 
 /**
- * Created by MM on 2018/3/17.
+ * Created by yurja on 2018/3/17.
  */
 
 public class WallPaperPresenterImpl implements  WallPaperPresenter,WallPaperDao.WallPaperListener {

@@ -2,8 +2,12 @@ package com.example.yurja.wallpaper.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,21 +16,23 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.yurja.wallpaper.LoginActivity;
 import com.example.yurja.wallpaper.MainActivity;
 import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.bmob_JavaBean._User;
 import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+
 
 /**
  * Created by yurja on 2018/3/17.
@@ -40,6 +46,9 @@ public class UserFragment extends Fragment {
     private String uname;
     private String upicurl;
     List<String> userinfolist;
+    public static final  int ALBUM_CODE = 2; //相册
+    private _User user;
+    private BmobFile bmobFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -56,54 +65,28 @@ public class UserFragment extends Fragment {
             }
         });
         initUser();
-        user_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initPopueWindow();
-            }
-        });
         return view;
     }
 
-    private void initPopueWindow() {
-        View popView  = View.inflate(getActivity(),R.layout.popupwindow_upload,null);
-        //Button cameraBt = (Button) popView.findViewById(R.id.camera);
-        //Button albumBt = (Button) popView.findViewById(R.id.album);
-       // Button cancelBt = (Button) popView.findViewById(R.id.cancel);
-
-        int weight = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels*1/3;
-
-        final PopupWindow popupWindow = new PopupWindow(popView,weight,height);
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-
-
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-                lp.alpha = 1.0f;
-                getActivity().getWindow().setAttributes(lp);
-            }
-        });
-
-
-        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-        lp.alpha = 0.5f;
-        getActivity().getWindow().setAttributes(lp);
-        popupWindow.showAtLocation(popView, Gravity.BOTTOM,0,50);
-
-
-    }
 
     private void initUser() { //获取到当前用户
-        BmobUser user = BmobUser.getCurrentUser();
-        if(user!=null){
-            userinfolist.clear();
-            userinfolist.add(user.getUsername());
-            dispUser();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                user = BmobUser.getCurrentUser(_User.class);
+                if(user !=null){
+                    userinfolist.clear();
+                    userinfolist.add(user.getUsername());
+                    if(user.getPicture().getFileUrl()!=null){
+                        userinfolist.add(user.getPicture().getFileUrl());
+                    }else {
+                        Log.d("照片","用户没有设置头像");
+                    }
+                    Message message = new Message();
+                    handler.sendMessage(message);
+                }
+            }
+        }).start();
 
     }
 
@@ -141,7 +124,7 @@ public class UserFragment extends Fragment {
                 Message message = new Message();
                 handler.sendMessage(message);
             }
-        });
+        }).start();
     }
 
 }

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.R;
 import com.example.yurja.wallpaper.bmob_JavaBean._User;
 import com.example.yurja.wallpaper.user.LoginView;
 import com.example.yurja.wallpaper.user.UserPresenter;
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private void login_app(_User user) {
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         intent.putExtra("username", user.getUsername());
-        if(user.getPicture()!=null){
+        if(user.getPicture().getFileUrl()!=null){
             intent.putExtra("pic_url", user.getPicture().getFileUrl());
             Log.d("url",user.getPicture().getFileUrl());
         }

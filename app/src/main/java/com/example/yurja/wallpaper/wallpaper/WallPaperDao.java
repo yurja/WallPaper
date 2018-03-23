@@ -16,5 +16,5 @@ public interface WallPaperDao {
         public void onFail();
     }
 
-    public void queryWallPaper(String cid,WallPaperListener listener);
+    public void queryWallPaper(String cidname,WallPaperListener listener);
 }

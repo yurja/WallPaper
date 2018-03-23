@@ -46,7 +46,13 @@ public class HomeFragment extends Fragment implements WallPaperView{
         list = new ArrayList<>();
         urllist = new ArrayList<>();
         presenter = new WallPaperPresenterImpl(this);
-        presenter.queryWallPaper(null);//查询所有
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.queryWallPaper(null);//从后台，查询所有壁纸
+            }
+        }).start();
+
         myAdapter = new MyAdapter();
     }
 

@@ -5,18 +5,28 @@
     android:layout_height="match_parent"
     tools:context="com.example.yurja.wallpaper.RegisterActivity">
 
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:src="@drawable/null_user" />
+
+
     <EditText
-        android:layout_marginTop="50dp"
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/image_view"
         android:gravity="center_vertical"
+        android:hint="@string/input_username"
         android:inputType="text"
-        android:textSize="22sp"
-        android:hint="@string/input_username"/>
+        android:textSize="22sp" />
     <EditText
         android:layout_marginTop="10dp"
         android:id="@+id/password"
