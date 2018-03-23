@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">高清壁纸库</string>
+    <string name="takephoto">拍照</string>
+    <string name="local_upload">本地上传</string>
+    <string name="cancel">取消</string>
+    <string name="_1">汽车1</string>
+    <string name="_2000">下载：2000</string>
+    <string name="set_wp">设置壁纸</string>
+    <string name="auto_change_wp">自动换壁纸</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="category">分类</string>
+    <string name="register">注册</string>
+    <string name="input_username">请输入账号</string>
+    <string name="intput_userpwd">请输入登录密码</string>
+    <string name="click_to_register">点此进行注册</string>
+    <string name="login">登录</string>
+</resources>

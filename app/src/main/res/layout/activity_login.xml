@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yurja.wallpaper.LoginActivity">
+
+    <EditText
+        android:layout_marginTop="50dp"
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:inputType="text"
+        android:textSize="22sp"
+        android:hint="@string/input_username"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/password"
+        android:layout_below="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:inputType="textPassword"
+        android:textSize="22sp"
+        android:hint="@string/intput_userpwd"/>
+
+    <TextView
+        android:id="@+id/register_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/password"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/click_to_register"
+        android:textSize="18sp"
+        android:textColor="@color/blue"/>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/register_tv"
+        android:layout_marginTop="17dp"
+        android:onClick="login"
+        android:padding="10dp"
+        android:text="@string/login"
+        android:textSize="25sp" />
+
+</RelativeLayout>
