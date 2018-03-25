@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     UserPresenter presenter;
 
     TextView registerTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +41,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         usernameEt.setText(uname);
         passwordEt.setText(upwd);
     }
-
-
 
     private void initViews() {
         usernameEt = (EditText) findViewById(R.id.username);
@@ -66,12 +65,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         passwordEt.setError("password error");
     }
 
+
+    //登录成功调用此方法
     @Override
     public void success(_User user) {
-       Toast.makeText(LoginActivity.this, "username:"+user.getUsername(), Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, "登录成功："+user.getUsername(), Toast.LENGTH_LONG).show();
         login_app(user);
     }
 
+    //传递数据到MainActvity
     private void login_app(_User user) {
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         intent.putExtra("username", user.getUsername());
@@ -79,10 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             intent.putExtra("pic_url", user.getPicture().getFileUrl());
             Log.d("url",user.getPicture().getFileUrl());
         }
-        // 1是返回的requestCode
         startActivity(intent);
-        Log.d("Login","登录");
-        //这里要直接干掉
         finish();
     }
 

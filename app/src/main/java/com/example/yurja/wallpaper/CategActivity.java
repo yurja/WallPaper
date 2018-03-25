@@ -45,14 +45,12 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
         presenter = new WallPaperPresenterImpl(this);
         Intent intent = getIntent();
         String cidname = intent.getStringExtra("cidname");
-        Log.d("2222",cidname);
         presenter.queryWallPaper(cidname);
     }
 
     @Override
     public void setWallPapaer(List<WallPaper> list) {
         this.list = list;
-        Log.d("222","查询成功");
         myAdapter.notifyDataSetChanged();
     }
 
@@ -91,7 +89,6 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
             TextView wp_name = (TextView)myView.findViewById(R.id.wp_name);
 
             WallPaper wp = list.get(position);
-            Log.d("22211",wp.getCidname());
 
             String url = wp.getWallpaper().getUrl();
             String name = wp.getName();

@@ -46,9 +46,7 @@ public class UserFragment extends Fragment {
     private String uname;
     private String upicurl;
     List<String> userinfolist;
-    public static final  int ALBUM_CODE = 2; //相册
     private _User user;
-    private BmobFile bmobFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -94,7 +92,7 @@ public class UserFragment extends Fragment {
         if(userinfolist.size() == 2){
             uname = userinfolist.get(0);
             upicurl = userinfolist.get(1);
-        }else{
+        }else if(userinfolist.size() == 1){
             uname = userinfolist.get(0);
         }
         if( uname != null ){
@@ -114,17 +112,17 @@ public class UserFragment extends Fragment {
         }
     };
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        userinfolist = ((MainActivity) activity).getTitles();
-        new Thread(new Runnable() { //跳转到主线程更新UI
-            @Override
-            public void run() {
-                Message message = new Message();
-                handler.sendMessage(message);
-            }
-        }).start();
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        userinfolist = ((MainActivity) activity).getTitles();
+//        new Thread(new Runnable() { //跳转到主线程更新UI
+//            @Override
+//            public void run() {
+//                Message message = new Message();
+//                handler.sendMessage(message);
+//            }
+//        }).start();
+//    }
 
 }

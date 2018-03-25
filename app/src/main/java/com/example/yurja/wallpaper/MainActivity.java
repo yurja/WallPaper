@@ -18,7 +18,6 @@ import com.example.yurja.wallpaper.fragments.UserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageNavigationView;
@@ -26,14 +25,13 @@ import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     PageNavigationView pageNavigationView;
     ViewPager viewPager;
     List<Fragment> fragmentList;
-    private String uname;
-    private String upicurl;
+    //private String uname;
+    //private String upicurl;
     List<String> userinfolist;
 
     @Override
@@ -57,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("onStart","跳转到MainActivity");
-        Intent intent = getIntent();
-        uname = intent.getStringExtra("username");
-        upicurl = intent.getStringExtra("pic_url");
-        userinfolist.clear();
-        userinfolist.add(uname);
-        if(upicurl!=null ){
-            userinfolist.add(upicurl);
-        }
-
-    }
+//    //活动从可见变到不可见
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Intent intent = getIntent();
+//        uname = intent.getStringExtra("username");
+//        upicurl = intent.getStringExtra("pic_url");
+//        userinfolist.clear();
+//        userinfolist.add(uname);
+//        if(upicurl!=null ){
+//            userinfolist.add(upicurl);
+//        }
+//
+//    }
 
     public List<String> getTitles(){
         return userinfolist;
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
     class FragmentAdapter extends FragmentPagerAdapter{
 
-
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -102,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         public android.support.v4.app.Fragment getItem(int position) {
             return fragmentList.get(position);
         }
-
         @Override
         public int getCount() {
             return fragmentList.size();
