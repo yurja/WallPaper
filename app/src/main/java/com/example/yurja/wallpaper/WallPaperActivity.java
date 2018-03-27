@@ -48,7 +48,6 @@ public class WallPaperActivity extends AppCompatActivity {
         index = intent.getIntExtra("index",0);
         gallery = (Gallery) findViewById(R.id.gallery);
         gallery.setAdapter(new MyAdapter(this,urllist));
-        Log.d("适配器","设置适配器");
         gallery.setSelection(index);
     }
 

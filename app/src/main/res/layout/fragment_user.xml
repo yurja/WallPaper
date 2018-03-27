@@ -21,13 +21,14 @@
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginStart="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="未登录"
+                android:text="@string/click_to_login"
                 android:textSize="22sp" />
 
             <TextView
@@ -44,11 +45,12 @@
             android:layout_gravity="center_vertical">
 
             <Button
-                android:id="@+id/enter_login"
+                android:id="@+id/quit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="0dp"
-                android:text="点击登录"/>
+                android:text="退出"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

@@ -14,11 +14,15 @@ import com.example.yurja.wallpaper.user.LoginView;
 import com.example.yurja.wallpaper.user.UserPresenter;
 import com.example.yurja.wallpaper.user.UserPresenterImpl;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
+public class LoginActivity extends AppCompatActivity  {
 
     EditText usernameEt,passwordEt;
 
-    UserPresenter presenter;
+    //UserPresenter presenter;
 
     TextView registerTv;
 
@@ -34,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 startActivity(intent);
             }
         });
-        presenter = new UserPresenterImpl(this);
+        //presenter = new UserPresenterImpl(this);
         Intent intent = getIntent();
         String uname = intent.getStringExtra("uname");
         String upwd = intent.getStringExtra("upwd");
@@ -49,45 +53,60 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     public void login(View view){
-        String username = usernameEt.getText().toString();
+        final String username = usernameEt.getText().toString();
         String password = passwordEt.getText().toString();
         Log.d("登录","LoginActivity");
-        presenter.login(username,password);
+        _User user = new _User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.login(new SaveListener<_User>() {
+            @Override
+            public void done(_User user, BmobException e) {
+                if ( e==null ){
+                    Toast.makeText(LoginActivity.this,"欢迎你,"+username+"!",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
-    @Override
-    public void setUsernameError() {
-        usernameEt.setError("username error");
-    }
+//    @Override
+//    public void setUsernameError() {
+//        usernameEt.setError("username error");
+//    }
+//
+//    @Override
+//    public void setPasswordError() {
+//        passwordEt.setError("password error");
+//    }
 
-    @Override
-    public void setPasswordError() {
-        passwordEt.setError("password error");
-    }
 
-
-    //登录成功调用此方法
-    @Override
-    public void success(_User user) {
-        Toast.makeText(LoginActivity.this, "登录成功："+user.getUsername(), Toast.LENGTH_LONG).show();
-        login_app(user);
-    }
+//    //登录成功调用此方法
+//    @Override
+//    public void success(_User user) {
+//        Toast.makeText(LoginActivity.this, "登录成功："+user.getUsername(), Toast.LENGTH_LONG).show();
+//        //login_app(user);
+//    }
 
     //传递数据到MainActvity
-    private void login_app(_User user) {
-        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-        intent.putExtra("username", user.getUsername());
-        if(user.getPicture().getFileUrl()!=null){
-            intent.putExtra("pic_url", user.getPicture().getFileUrl());
-            Log.d("url",user.getPicture().getFileUrl());
-        }
-        startActivity(intent);
-        finish();
-    }
+//    private void login_app(_User user) {
+//        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//        intent.putExtra("username", user.getUsername());
+//        if(user.getPicture().getFileUrl()!=null){
+//            intent.putExtra("pic_url", user.getPicture().getFileUrl());
+//            Log.d("url",user.getPicture().getFileUrl());
+//        }
+//        startActivity(intent);
+//        finish();
+//    }
 
-    @Override
-    public void fail() {
-        Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//        public void fail() {
+//            Toast.makeText(LoginActivity.this, "fail", Toast.LENGTH_SHORT).show();
+//    }
 
 }

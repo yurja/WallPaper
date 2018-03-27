@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
     List<WallPaper> list;
     MyAdapter myAdapter;
     WallPaperPresenter presenter;
+    ArrayList <String> urllist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,24 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
         gridView = (GridView) findViewById(R.id.gridview);
         myAdapter = new MyAdapter();
         gridView.setAdapter(myAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CategActivity.this, WallPaperActivity.class);
+
+                intent.putExtra("index",position);
+
+                intent.putStringArrayListExtra("urllist",urllist);
+
+                startActivity(intent);
+            }
+        });
 
     }
 
     private void initData() {
         list = new ArrayList<>();
+        urllist = new ArrayList<>();
         presenter = new WallPaperPresenterImpl(this);
         Intent intent = getIntent();
         String cidname = intent.getStringExtra("cidname");
@@ -51,6 +66,10 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
     @Override
     public void setWallPapaer(List<WallPaper> list) {
         this.list = list;
+        this.urllist.clear();
+        for(WallPaper wp : list){
+            urllist.add(wp.getWallpaper().getFileUrl());
+        }
         myAdapter.notifyDataSetChanged();
     }
 

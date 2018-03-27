@@ -3,6 +3,7 @@ package com.example.yurja.wallpaper.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yurja.wallpaper.LoginActivity;
 import com.example.yurja.wallpaper.MainActivity;
@@ -40,7 +42,7 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class UserFragment extends Fragment {
 
-    Button enter_login;
+    Button quit;
     ImageView user_pic;
     TextView username;
     private String uname;
@@ -53,9 +55,9 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user,container,false);
         username = (TextView) view.findViewById(R.id.user_name);
         user_pic = (ImageView) view.findViewById(R.id.user_pic);
-        enter_login = view.findViewById(R.id.enter_login);
+        quit = view.findViewById(R.id.quit);
         userinfolist = new ArrayList<>();
-        enter_login.setOnClickListener(new View.OnClickListener() {
+        username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -63,9 +65,19 @@ public class UserFragment extends Fragment {
             }
         });
         initUser();
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobUser.logOut();
+                quit.setVisibility(View.INVISIBLE);
+                username.setText("点击登录");
+                user_pic.setImageDrawable(getResources().getDrawable(R.drawable.null_user));
+                Toast.makeText(getActivity(),"退出成功",Toast.LENGTH_SHORT).show();
+                username.setClickable(true);
+            }
+        });
         return view;
     }
-
 
     private void initUser() { //获取到当前用户
         new Thread(new Runnable() {
@@ -89,6 +101,8 @@ public class UserFragment extends Fragment {
     }
 
     private void dispUser(){ //显示用户
+        quit.setVisibility(View.VISIBLE);
+        username.setClickable(false);
         if(userinfolist.size() == 2){
             uname = userinfolist.get(0);
             upicurl = userinfolist.get(1);
@@ -97,7 +111,6 @@ public class UserFragment extends Fragment {
         }
         if( uname != null ){
             username.setText(uname);
-            enter_login.setText("退出");
         }
         if (upicurl!=null){
             Picasso.with(getContext()).load(upicurl).into(user_pic);

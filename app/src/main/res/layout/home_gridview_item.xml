@@ -8,37 +8,15 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:scaleType="fitXY"
-        android:contentDescription="TODO"/>
+        android:scaleType="fitXY" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/wp_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:textSize="12sp"
-            android:text="@string/_1"
-            android:layout_marginStart="5dp" />
-
-        <TextView
-            android:id="@+id/download_num"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp"
-            android:textSize="12sp"
-            android:text="@string/_2000"
-            android:gravity="right"
-            android:layout_marginEnd="5dp" />
-
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/wp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wallpaper_name"
+        android:layout_gravity="right"
+        android:layout_marginRight="5dp"
+        android:textSize="12sp" />
 
 </LinearLayout>
