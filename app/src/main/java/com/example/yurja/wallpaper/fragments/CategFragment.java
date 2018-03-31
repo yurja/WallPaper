@@ -73,6 +73,10 @@ public class CategFragment extends Fragment implements CategoryView{
 
     class MyAdapter extends BaseAdapter{
 
+        class ViewHolder {
+            ImageView imageView;
+            TextView catg_name;
+        }
         @Override
         public int getCount() {
             return list.size();
@@ -91,18 +95,21 @@ public class CategFragment extends Fragment implements CategoryView{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View myView;
+            ViewHolder viewHolder;
             if(convertView == null){
                 myView = getActivity().getLayoutInflater().inflate(R.layout.categ_gridview_item,null);
+                viewHolder = new ViewHolder();
+                viewHolder.imageView = (ImageView) myView.findViewById(R.id.image_view);
+                viewHolder.catg_name = (TextView) myView.findViewById(R.id.catg_name);
+                myView.setTag(viewHolder);
             }else {
                 myView = convertView;
+                viewHolder = (ViewHolder) myView.getTag();
             }
-            ImageView imageView = (ImageView) myView.findViewById(R.id.image_view);
-            //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            TextView catg_name = (TextView) myView.findViewById(R.id.catg_name);
             Category category = list.get(position);
             String url = category.getCover().getFileUrl();
-            Picasso.with(getActivity()).load(url).into(imageView);
-            catg_name.setText(category.getName());
+            Picasso.with(getActivity()).load(url).into(viewHolder.imageView);
+            viewHolder.catg_name.setText(category.getName());
             return myView;
         }
     }

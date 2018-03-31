@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
     List<ImageView> DotLists;
     MyAdapter myAdapter;
     ImgpagerAdapter imgpagerAdapter;
-    int i=0;
 
 
     Handler handler = new Handler(){
@@ -80,7 +79,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
         presenter = new WallPaperPresenterImpl(this);
         presenter.queryWallPaper(null);//从后台，查询所有壁纸
         myAdapter = new MyAdapter();
-
     }
 
     private void initViewPager() {
@@ -115,9 +113,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
         });
 
 }
-
-
-
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -138,7 +133,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
                 startActivity(intent);
             }
         });
-
 
         viewPager.setOffscreenPageLimit(viewLists.size());
         imgpagerAdapter = new ImgpagerAdapter();
@@ -164,16 +158,10 @@ public class HomeFragment extends Fragment implements WallPaperView{
     }
 
     private void ChangDot(int position) {
-        Log.d("Dot执行","第"+i+"次"+"position"+position);
-        i++;
-        DotLists.get(position).setImageResource(R.drawable.dotb);
-        if(position == 0 ){
-            DotLists.get(viewLists.size()-1).setImageResource(R.drawable.dota);
-        }else {
-            DotLists.get(position-1).setImageResource(R.drawable.dota);
+        for (int i = 0; i <DotLists.size() ; i++) {
+            DotLists.get(i).setImageResource(position == i ? R.drawable.dotb : R.drawable.dota);
         }
     }
-
 
     public class  ImgpagerAdapter extends PagerAdapter{
 
@@ -186,7 +174,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
         public boolean isViewFromObject(View view, Object object) {
             return view==object;
         }
-
 
         @Override
         public Object instantiateItem(View container, int position) {
@@ -215,7 +202,15 @@ public class HomeFragment extends Fragment implements WallPaperView{
         Toast.makeText(getActivity(),"查询失败",Toast.LENGTH_SHORT).show();
     }
 
+
+
+
     class  MyAdapter extends BaseAdapter{
+
+        class  ViewHolder {
+            ImageView imageView;
+            TextView wp_name;
+        }
         @Override
         public int getCount() {
             return list.size();
@@ -235,24 +230,23 @@ public class HomeFragment extends Fragment implements WallPaperView{
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View myView;
+            ViewHolder viewHolder;
             if(convertView == null){
                 myView = getActivity().getLayoutInflater().inflate(R.layout.home_gridview_item,null);
+                viewHolder = new ViewHolder();
+                viewHolder.imageView = (ImageView) myView.findViewById(R.id.image_view);
+                viewHolder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                viewHolder.wp_name = (TextView) myView.findViewById(R.id.wp_name);
+                myView.setTag(viewHolder);
             }else {
                 myView = convertView;
+                viewHolder = (ViewHolder) myView.getTag();
             }
-            ImageView imageView = (ImageView) myView.findViewById(R.id.image_view);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            TextView wp_name = (TextView)myView.findViewById(R.id.wp_name);
-            //TextView download_num = (TextView) convertView.findViewById(R.id.download_num);
-
             WallPaper wp = list.get(position);
-
             String url = wp.getWallpaper().getUrl();
             String name = wp.getName();
-
-            Picasso.with(getActivity()).load(url).into(imageView);
-
-            wp_name.setText(name);
+            Picasso.with(getActivity()).load(url).into(viewHolder.imageView);
+            viewHolder.wp_name.setText(name);
 
             return myView;
         }

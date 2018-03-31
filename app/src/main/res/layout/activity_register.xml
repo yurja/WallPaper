@@ -5,16 +5,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.yurja.wallpaper.RegisterActivity">
 
-
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        android:src="@drawable/null_user" />
-
+        android:src="@drawable/usericon" />
 
     <EditText
         android:id="@+id/username"
