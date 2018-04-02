@@ -30,6 +30,7 @@ import com.example.yurja.wallpaper.wallpaper.WallPaperPresenterImpl;
 import com.example.yurja.wallpaper.wallpaper.WallPaperView;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,18 +38,19 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
+
+
 /**
  * Created by yurja on 2018/3/17.
  */
 
-public class HomeFragment extends Fragment implements WallPaperView{
+public class HomeFragment extends Fragment implements WallPaperView,Serializable{
 
     ViewPager viewPager;
     GridView gridView;
     WallPaperPresenter presenter;
     List<View> viewLists;
     List<WallPaper> list;
-    ArrayList <String> urllist;
     ViewGroup DotViewGroup;
     List<ImageView> DotLists;
     MyAdapter myAdapter;
@@ -73,7 +75,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list = new ArrayList<>();
-        urllist = new ArrayList<>();
         viewLists = new ArrayList<>();
         DotLists = new ArrayList<>();
         presenter = new WallPaperPresenterImpl(this);
@@ -88,6 +89,7 @@ public class HomeFragment extends Fragment implements WallPaperView{
             public void done(List<Ads> list, BmobException e) {
                 if(e == null){
                     viewLists.clear();
+                    DotLists.clear();
                     for(Ads ads : list){
                         ImageView imageView = new ImageView(getActivity());
                         Picasso.with(getActivity()).load(ads.getPicture().getFileUrl()).into(imageView);
@@ -128,8 +130,7 @@ public class HomeFragment extends Fragment implements WallPaperView{
 
                 intent.putExtra("index",position);
 
-                intent.putStringArrayListExtra("urllist",urllist);
-
+                intent.putExtra("wallPaperList",(Serializable) (list));
                 startActivity(intent);
             }
         });
@@ -190,10 +191,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
     @Override
     public void setWallPapaer(List<WallPaper> list) {
         this.list = list;
-        this.urllist.clear();
-        for(WallPaper wp : list){
-            urllist.add(wp.getWallpaper().getFileUrl());
-        }
         myAdapter.notifyDataSetChanged();
     }
 
@@ -201,9 +198,6 @@ public class HomeFragment extends Fragment implements WallPaperView{
     public void setFail() {
         Toast.makeText(getActivity(),"查询失败",Toast.LENGTH_SHORT).show();
     }
-
-
-
 
     class  MyAdapter extends BaseAdapter{
 
@@ -223,7 +217,7 @@ public class HomeFragment extends Fragment implements WallPaperView{
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override

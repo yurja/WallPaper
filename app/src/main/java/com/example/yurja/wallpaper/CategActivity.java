@@ -20,16 +20,16 @@ import com.example.yurja.wallpaper.wallpaper.WallPaperPresenterImpl;
 import com.example.yurja.wallpaper.wallpaper.WallPaperView;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategActivity extends AppCompatActivity implements WallPaperView {
+public class CategActivity extends AppCompatActivity implements WallPaperView,Serializable {
 
     GridView gridView;
     List<WallPaper> list;
     MyAdapter myAdapter;
     WallPaperPresenter presenter;
-    ArrayList <String> urllist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
 
                 intent.putExtra("index",position);
 
-                intent.putStringArrayListExtra("urllist",urllist);
+                intent.putExtra("wallPaperList",(Serializable) (list));
 
                 startActivity(intent);
             }
@@ -56,7 +56,6 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
 
     private void initData() {
         list = new ArrayList<>();
-        urllist = new ArrayList<>();
         presenter = new WallPaperPresenterImpl(this);
         Intent intent = getIntent();
         String cidname = intent.getStringExtra("cidname");
@@ -66,10 +65,7 @@ public class CategActivity extends AppCompatActivity implements WallPaperView {
     @Override
     public void setWallPapaer(List<WallPaper> list) {
         this.list = list;
-        this.urllist.clear();
-        for(WallPaper wp : list){
-            urllist.add(wp.getWallpaper().getFileUrl());
-        }
+
         myAdapter.notifyDataSetChanged();
     }
 

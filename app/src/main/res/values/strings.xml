@@ -15,4 +15,6 @@
     <string name="login">登录</string>
     <string name="click_to_login">点击登录</string>
     <string name="wallpaper_name">壁纸名</string>
+    <string name="collect_wp">收藏</string>
+    <string name="share_wp">分享</string>
 </resources>

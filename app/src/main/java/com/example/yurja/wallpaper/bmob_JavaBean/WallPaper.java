@@ -2,6 +2,7 @@ package com.example.yurja.wallpaper.bmob_JavaBean;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by yurja on 2018/3/16.

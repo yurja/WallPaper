@@ -18,6 +18,8 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
+import com.example.yurja.wallpaper.bmob_JavaBean._User;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -27,10 +29,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+
 public class WallPaperActivity extends AppCompatActivity {
 
     Gallery gallery;
-    List<String> urllist;
+    List<WallPaper> wallPaperList;
     int index;
 
     @Override
@@ -42,21 +49,21 @@ public class WallPaperActivity extends AppCompatActivity {
 
     private void initView() {
         Intent intent = getIntent();
-        urllist = new ArrayList<>();
-        urllist = intent.getStringArrayListExtra("urllist");
-        Log.d("urllist size",""+urllist.size());
+        wallPaperList = new ArrayList<>();
+        wallPaperList = (List<WallPaper>)intent.getSerializableExtra("wallPaperList");
+        Log.d("WallPaperList size",""+wallPaperList.size());
         index = intent.getIntExtra("index",0);
         gallery = (Gallery) findViewById(R.id.gallery);
-        gallery.setAdapter(new MyAdapter(this,urllist));
+        gallery.setAdapter(new MyAdapter(this,wallPaperList));
         gallery.setSelection(index);
     }
 
     class MyAdapter extends BaseAdapter{
 
         Context context;
-        List<String> list;
+        List<WallPaper> list;
 
-        public MyAdapter(Context context, List<String> list) {
+        public MyAdapter(Context context, List<WallPaper> list) {
             this.context = context;
             this.list = list;
         }
@@ -84,13 +91,37 @@ public class WallPaperActivity extends AppCompatActivity {
             }else {
                 myView = convertView;
             }
-            ImageView wallpaper = (ImageView) myView.findViewById(R.id.image_view);
+            final ImageView wallpaper = (ImageView) myView.findViewById(R.id.image_view);
             ImageView set_wp = (ImageView) myView.findViewById(R.id.set_wp);
+            ImageView collect_wp = (ImageView) myView.findViewById(R.id.collect_wp);
 
+
+            collect_wp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    _User user = BmobUser.getCurrentUser(_User.class);
+                    WallPaper wp = list.get(position);
+                    BmobRelation relation = new BmobRelation();
+                    relation.add(wp);
+                    user.setLikes(relation);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
+                                Log.i("bmob","多对多关联添加成功");
+                            }else{
+                                Log.i("bmob","失败："+e.getMessage());
+                            }
+                        }
+                    });
+
+                }
+            });
             set_wp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String urlstring = list.get(position);
+                    String urlstring = list.get(position).getWallpaper().getFileUrl();
                     InputStream in = null;
                     try {
                         URL url = new URL(urlstring);
@@ -121,7 +152,7 @@ public class WallPaperActivity extends AppCompatActivity {
 
             wallpaper.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            Picasso.with(context).load(list.get(position)).resize(params.width,params.height)
+            Picasso.with(context).load(list.get(position).getWallpaper().getFileUrl()).resize(params.width,params.height)
                     .centerCrop().into(wallpaper);
 
             return myView;
