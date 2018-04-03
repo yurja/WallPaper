@@ -2,10 +2,6 @@ package com.example.yurja.wallpaper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
-import android.hardware.Camera;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,15 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+
 
 import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
 import com.example.yurja.wallpaper.bmob_JavaBean._User;
-import com.example.yurja.wallpaper.fragments.HomeFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -49,7 +41,7 @@ public class UserCollectActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_collect);
-        wallPaperList = new ArrayList<WallPaper>();
+        wallPaperList = new ArrayList<>();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -59,7 +51,6 @@ public class UserCollectActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         collectAdapter = new CollectAdapter(this,wallPaperList);
         recyclerView.setAdapter(collectAdapter);
-        Log.d("1111",""+wallPaperList.size());
     }
 
     private void initData() {
@@ -90,10 +81,12 @@ public class UserCollectActivity extends AppCompatActivity {
 
         public  class ViewHolder extends RecyclerView.ViewHolder{
 
+            View myView;
             ImageView imageView;
 
             public ViewHolder(View view){
                 super(view);
+                myView = view;
                 imageView = (ImageView) view.findViewById(R.id.collect_img_view);
             }
         }
@@ -107,8 +100,18 @@ public class UserCollectActivity extends AppCompatActivity {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.recycler_item,
                     parent,false);
-            ViewHolder holder = new ViewHolder(view);
+            final ViewHolder holder = new ViewHolder(view);
             Log.d("111","返回holder");
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(UserCollectActivity.this, WallPaperActivity.class);
+                    int position = holder.getAdapterPosition();
+                    intent.putExtra("index",position);
+                    intent.putExtra("wallPaperList",(Serializable) (wallPaperList));
+                    startActivity(intent);
+                }
+            });
             return holder;
         }
 

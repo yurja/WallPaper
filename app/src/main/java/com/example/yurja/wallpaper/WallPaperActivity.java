@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -29,16 +31,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class WallPaperActivity extends AppCompatActivity {
 
     Gallery gallery;
-    List<WallPaper> wallPaperList;
+    List<WallPaper> wallPaperList;//要显示在gallery中的壁纸
+    List<WallPaper> collectWallPaperList; //用户收藏的壁纸
     int index;
+    MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +58,38 @@ public class WallPaperActivity extends AppCompatActivity {
     private void initView() {
         Intent intent = getIntent();
         wallPaperList = new ArrayList<>();
+        collectWallPaperList = new ArrayList<>();//用户收藏的壁纸
+        initCollectData();
         wallPaperList = (List<WallPaper>)intent.getSerializableExtra("wallPaperList");
-        Log.d("WallPaperList size",""+wallPaperList.size());
         index = intent.getIntExtra("index",0);
         gallery = (Gallery) findViewById(R.id.gallery);
-        gallery.setAdapter(new MyAdapter(this,wallPaperList));
+        myAdapter =new MyAdapter(this,wallPaperList);
+        gallery.setAdapter(myAdapter);
         gallery.setSelection(index);
     }
 
-    class MyAdapter extends BaseAdapter{
+    private void initCollectData() { //查询当当前用户收藏的壁纸
+        BmobQuery<WallPaper> query = new BmobQuery<WallPaper>();
+        _User user = BmobUser.getCurrentUser(_User.class);
+        query.addWhereRelatedTo("likes",new BmobPointer(user));
+        query.findObjects(new FindListener<WallPaper>() {
+            @Override
+            public void done(List<WallPaper> list, BmobException e) {
+                    if(e==null){
+                    collectWallPaperList.addAll(list);
+                    myAdapter.notifyDataSetChanged();
+                }else{
+                    Log.i("bmob","失败："+e.getMessage());
+                }
 
+            }
+        });
+    }
+
+    class MyAdapter extends BaseAdapter{
         Context context;
         List<WallPaper> list;
-
+        ImageView collect_wp;
         public MyAdapter(Context context, List<WallPaper> list) {
             this.context = context;
             this.list = list;
@@ -86,6 +113,7 @@ public class WallPaperActivity extends AppCompatActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View myView;
+
             if( convertView == null ){
                 myView = LayoutInflater.from(context).inflate(R.layout.gallery_item,null);
             }else {
@@ -93,8 +121,11 @@ public class WallPaperActivity extends AppCompatActivity {
             }
             final ImageView wallpaper = (ImageView) myView.findViewById(R.id.image_view);
             ImageView set_wp = (ImageView) myView.findViewById(R.id.set_wp);
-            ImageView collect_wp = (ImageView) myView.findViewById(R.id.collect_wp);
+            collect_wp = (ImageView) myView.findViewById(R.id.collect_wp);
 
+            if(collectWallPaperList.contains(list.get(position)) == true){ //如何当前壁纸是用户收藏的壁纸
+                collect_wp.setImageResource(R.drawable.collectb); //设置为收藏状态
+            }
 
             collect_wp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,19 +133,42 @@ public class WallPaperActivity extends AppCompatActivity {
                     _User user = BmobUser.getCurrentUser(_User.class);
                     WallPaper wp = list.get(position);
                     BmobRelation relation = new BmobRelation();
-                    relation.add(wp);
-                    user.setLikes(relation);
-                    user.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if(e==null){
-                                Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
-                                Log.i("bmob","多对多关联添加成功");
-                            }else{
-                                Log.i("bmob","失败："+e.getMessage());
+                    if(collectWallPaperList.contains(list.get(position)) == true){
+                        relation.remove(wp);
+                        user.setLikes(relation);
+                        user.update(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if(e==null){
+                                    Toast.makeText(context,"取消收藏",Toast.LENGTH_SHORT).show();
+                                    collect_wp.setImageResource(R.drawable.collecta);
+                                    initCollectData();
+                                }else{
+                                    Log.i("bmob","失败："+e.getMessage());
+                                }
                             }
-                        }
-                    });
+                        });
+                    }else {
+                        relation.add(wp);
+                        user.setLikes(relation);
+                        user.update(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if(e==null){
+                                    Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
+                                    Log.i("bmob","多对多关联添加成功");
+                                    collect_wp.setImageResource(R.drawable.collectb);
+                                    initCollectData();
+                                }else{
+                                    Log.i("bmob","失败："+e.getMessage());
+                                }
+                            }
+                        });
+
+                    }
+
+
+
 
                 }
             });

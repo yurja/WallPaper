@@ -10,6 +10,7 @@ import cn.bmob.v3.datatype.BmobRelation;
 
 public class WallPaper extends BmobObject {
 
+
     private String name;
     private String cidname;
     private BmobFile wallpaper;
@@ -36,5 +37,14 @@ public class WallPaper extends BmobObject {
 
     public void setWallpaper(BmobFile wallpaper) {
         this.wallpaper = wallpaper;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof WallPaper){
+            WallPaper wallPaper = (WallPaper) obj;
+            return this.getObjectId().equals(wallPaper.getObjectId());
+        }
+        return super.equals(obj);
     }
 }

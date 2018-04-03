@@ -24,6 +24,7 @@
     </FrameLayout>
 
     <GridView
+        android:layout_marginTop="5dp"
         android:id="@+id/gridview"
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp"

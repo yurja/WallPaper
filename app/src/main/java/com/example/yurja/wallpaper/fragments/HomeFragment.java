@@ -93,12 +93,13 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                     for(Ads ads : list){
                         ImageView imageView = new ImageView(getActivity());
                         Picasso.with(getActivity()).load(ads.getPicture().getFileUrl()).into(imageView);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                         viewLists.add(imageView);
                         ImageView dot = new ImageView(getActivity());
                         dot.setImageResource(R.drawable.dota);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(25,25);
-                        layoutParams.leftMargin = 40;
-                        layoutParams.rightMargin = 40;
+                        layoutParams.leftMargin = 20;
+                        layoutParams.rightMargin = 20;
                         dot.setLayoutParams(layoutParams);
                         dot.setEnabled(false);
                         DotLists.add(dot);
@@ -190,7 +191,9 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
 
     @Override
     public void setWallPapaer(List<WallPaper> list) {
-        this.list = list;
+        for(int i = list.size()-10;i<list.size();i++){
+            this.list.add(list.get(i));
+        }
         myAdapter.notifyDataSetChanged();
     }
 
@@ -200,7 +203,6 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
     }
 
     class  MyAdapter extends BaseAdapter{
-
         class  ViewHolder {
             ImageView imageView;
             TextView wp_name;
@@ -236,11 +238,11 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                 myView = convertView;
                 viewHolder = (ViewHolder) myView.getTag();
             }
-            WallPaper wp = list.get(position);
-            String url = wp.getWallpaper().getUrl();
-            String name = wp.getName();
-            Picasso.with(getActivity()).load(url).into(viewHolder.imageView);
-            viewHolder.wp_name.setText(name);
+                viewHolder.wp_name.setVisibility(View.GONE);
+                WallPaper wp = list.get(position);
+                String url = wp.getWallpaper().getUrl();
+                //String name = wp.getName();
+                Picasso.with(getActivity()).load(url).into(viewHolder.imageView);
 
             return myView;
         }
