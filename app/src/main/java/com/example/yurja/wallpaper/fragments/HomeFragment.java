@@ -57,6 +57,8 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
     ImgpagerAdapter imgpagerAdapter;
 
 
+
+
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -81,6 +83,7 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
         presenter.queryWallPaper(null);//从后台，查询所有壁纸
         myAdapter = new MyAdapter();
     }
+
 
     private void initViewPager() {
         BmobQuery<Ads> query = new BmobQuery<>("Ads");

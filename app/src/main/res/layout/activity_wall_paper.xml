@@ -8,6 +8,8 @@
     <Gallery
         android:id="@+id/gallery"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></Gallery>
+        android:layout_height="match_parent">
+
+    </Gallery>
 
 </LinearLayout>

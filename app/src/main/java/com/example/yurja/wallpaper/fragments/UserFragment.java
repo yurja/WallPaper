@@ -1,5 +1,6 @@
 package com.example.yurja.wallpaper.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -116,6 +117,12 @@ public class UserFragment extends Fragment {
         ITEMS.add(item6);
         ITEMS.add(item7);
         ITEMS.add(item8);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initUser();
     }
 
     private void initUser() { //获取到当前用户

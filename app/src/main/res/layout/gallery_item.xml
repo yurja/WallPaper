@@ -17,15 +17,17 @@
         android:layout_gravity="bottom|center">
 
         <LinearLayout
+            android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/collect_wp"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/collecta" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/collecta"
+                android:layout_gravity="center"/>
             <TextView
                 android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
@@ -36,6 +38,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -46,14 +49,15 @@
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/set_wp"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/set_wp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/set_wp"
+                android:layout_gravity="center"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -64,17 +68,19 @@
             android:layout_height="wrap_content"
             >
             <ImageView
-                android:id="@+id/share_wp"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/share_wp" />
-            <TextView
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:id="@+id/share_wp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/share_wp" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
                 android:text="@string/share_wp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

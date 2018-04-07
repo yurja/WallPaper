@@ -71,12 +71,14 @@ public class WallPaperActivity extends AppCompatActivity {
     private void initCollectData() { //查询当当前用户收藏的壁纸
         BmobQuery<WallPaper> query = new BmobQuery<WallPaper>();
         _User user = BmobUser.getCurrentUser(_User.class);
+        collectWallPaperList.clear();
         query.addWhereRelatedTo("likes",new BmobPointer(user));
         query.findObjects(new FindListener<WallPaper>() {
             @Override
             public void done(List<WallPaper> list, BmobException e) {
                     if(e==null){
                     collectWallPaperList.addAll(list);
+                    Log.d("更新","收藏列表");
                     myAdapter.notifyDataSetChanged();
                 }else{
                     Log.i("bmob","失败："+e.getMessage());
@@ -156,7 +158,6 @@ public class WallPaperActivity extends AppCompatActivity {
                             public void done(BmobException e) {
                                 if(e==null){
                                     Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
-                                    Log.i("bmob","多对多关联添加成功");
                                     collect_wp.setImageResource(R.drawable.collectb);
                                     initCollectData();
                                 }else{
