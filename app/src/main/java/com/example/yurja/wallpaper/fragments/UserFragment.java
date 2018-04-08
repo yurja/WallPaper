@@ -125,7 +125,7 @@ public class UserFragment extends Fragment {
         initUser();
     }
 
-    private void initUser() { //获取到当前用户
+    public void initUser() { //获取到当前用户
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
@@ -33,7 +34,7 @@ public class UserCollectActivity extends AppCompatActivity {
     List<WallPaper> wallPaperList;
     CollectAdapter collectAdapter;
     RecyclerView recyclerView;
-
+    private Topbar topbar;
 
 
     @Override
@@ -42,16 +43,38 @@ public class UserCollectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_collect);
         wallPaperList = new ArrayList<>();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         initData();
+        initView();
+        topbar.setRightVisibility(false);
+       // setListener();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         GridLayoutManager manager = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(manager);
         collectAdapter = new CollectAdapter(this,wallPaperList);
         recyclerView.setAdapter(collectAdapter);
     }
+
+//    private void setListener() {
+//        topbar.setTopbarClickListener(new Topbar.TopbarClickListener() {
+//            @Override
+//            public void rightClick() {
+//                Toast.makeText(UserCollectActivity.this, "点击搜索", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//
+//    }
+
+    private <T> T f(int id) {
+        return (T) findViewById(id);
+    }
+
+    private void initView() {
+        topbar = f(R.id.topbar);
+    }
+
+
+
 
     private void initData() {
         BmobQuery<WallPaper> query = new BmobQuery<WallPaper>();

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.example.yurja.wallpaper.UserCollectActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#dedddd"
-        android:textAlignment="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:text="我的收藏"
-            android:textSize="20sp" />
-    </android.support.v7.widget.Toolbar>
+   <com.example.yurja.wallpaper.Topbar
+       android:id="@+id/topbar"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       custom:LeftBackground="@drawable/back"
+       custom:RightBackground="@drawable/search"
+       custom:Title="我的收藏"
+       custom:TitleTextColor="@color/white"
+       >
+   </com.example.yurja.wallpaper.Topbar>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
