@@ -1,5 +1,6 @@
 package com.example.yurja.wallpaper.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -19,12 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.LoginActivity;
+import com.example.yurja.wallpaper.MainActivity;
 import com.example.yurja.wallpaper.R;
 import com.example.yurja.wallpaper.UserCollectActivity;
 import com.example.yurja.wallpaper.bmob_JavaBean._User;
 import com.squareup.picasso.Picasso;
 
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +51,7 @@ public class UserFragment extends Fragment {
     List<Item> ITEMS;
     ListView listView;
     MyAdapter myAdapter;
+    static MyHandler myHandler;
 
     private class Item {
         int rid;
@@ -63,6 +67,7 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user,container,false);
         ITEMS = new ArrayList<>();
+        myHandler = new MyHandler(this);
         username = (TextView) view.findViewById(R.id.user_name);
         user_pic = (ImageView) view.findViewById(R.id.user_pic);
         quit =(ImageView) view.findViewById(R.id.quit);
@@ -123,6 +128,7 @@ public class UserFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initUser();
+
     }
 
     public void initUser() { //获取到当前用户
@@ -139,38 +145,46 @@ public class UserFragment extends Fragment {
                         Log.d("照片","用户没有设置头像");
                     }
                     Message message = new Message();
-                    handler.sendMessage(message);
+                    myHandler.sendMessage(message);
                 }
             }
         }).start();
 
     }
 
-    private void dispUser(){ //显示用户
-        quit.setVisibility(View.VISIBLE);
-        quitTV.setVisibility(View.VISIBLE);
-        username.setClickable(false);
-        if(userinfolist.size() == 2){
-            uname = userinfolist.get(0);
-            upicurl = userinfolist.get(1);
-        }else if(userinfolist.size() == 1){
-            uname = userinfolist.get(0);
+
+    static class MyHandler extends Handler {
+        WeakReference<UserFragment>  mFragmentReference;
+        MyHandler(UserFragment fragment) {
+            mFragmentReference= new WeakReference<UserFragment>(fragment);
         }
-        if( uname != null ){
-            username.setText(uname);
-        }
-        if (upicurl!=null){
-            Picasso.with(getContext()).load(upicurl).into(user_pic);
+        @Override
+        public void handleMessage(Message msg) {
+            final UserFragment fragment =  mFragmentReference.get();
+            dispUser(fragment);
         }
     }
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            dispUser();
+    private static void dispUser(UserFragment fragment) {
+        if (fragment!= null) {
+            fragment.quit.setVisibility(View.VISIBLE);
+            fragment.quitTV.setVisibility(View.VISIBLE);
+            fragment.username.setClickable(false);
+            if(fragment.userinfolist.size() == 2){
+                fragment.uname = fragment.userinfolist.get(0);
+                fragment.upicurl = fragment.userinfolist.get(1);
+            }else if(fragment.userinfolist.size() == 1){
+                fragment.uname = fragment.userinfolist.get(0);
+            }
+            if( fragment.uname != null ){
+                fragment.username.setText(fragment.uname);
+            }
+            if (fragment.upicurl!=null){
+                Picasso.with(fragment.getActivity()).load(fragment.upicurl).into(fragment.user_pic);
+            }
         }
-    };
+    }
+
 
     class MyAdapter extends BaseAdapter {
 

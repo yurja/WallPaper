@@ -46,7 +46,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class HomeFragment extends Fragment implements WallPaperView,Serializable{
 
-    ViewPager viewPager;
+    static ViewPager viewPager;
     GridView gridView;
     WallPaperPresenter presenter;
     List<View> viewLists;
@@ -55,9 +55,6 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
     List<ImageView> DotLists;
     MyAdapter myAdapter;
     ImgpagerAdapter imgpagerAdapter;
-
-
-
 
     Handler handler = new Handler(){
         @Override
@@ -73,6 +70,10 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
         }
     };
 
+
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +83,14 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
         presenter = new WallPaperPresenterImpl(this);
         presenter.queryWallPaper(null);//从后台，查询所有壁纸
         myAdapter = new MyAdapter();
+
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 
     private void initViewPager() {
         BmobQuery<Ads> query = new BmobQuery<>("Ads");
