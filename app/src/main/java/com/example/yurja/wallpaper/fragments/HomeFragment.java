@@ -1,6 +1,5 @@
 package com.example.yurja.wallpaper.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -39,7 +38,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 
-
 /**
  * Created by yurja on 2018/3/17.
  */
@@ -70,9 +68,6 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
             handler.sendMessageDelayed(message,4000);
         }
     };
-
-
-
 
 
     @Override
@@ -149,6 +144,7 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                 startActivity(intent);
             }
         });
+
         viewPager.setOffscreenPageLimit(viewLists.size());
         imgpagerAdapter = new ImgpagerAdapter();
         viewPager.setAdapter(imgpagerAdapter);

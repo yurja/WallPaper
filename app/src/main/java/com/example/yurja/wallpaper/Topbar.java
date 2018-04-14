@@ -117,7 +117,12 @@ public class Topbar extends RelativeLayout {
 
     public void setRightVisibility(boolean flag) {
         if (flag) rightImg.setVisibility(VISIBLE);
-        else rightImg.setVisibility(INVISIBLE);
+        else rightImg.setVisibility(GONE);
+    }
+
+    public void setLeftVisibility(boolean flag) {
+        if (flag) leftImg.setVisibility(VISIBLE);
+        else leftImg.setVisibility(GONE);
     }
 
 }
