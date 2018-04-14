@@ -57,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-
     private void initView() {
         registerBt = (Button) findViewById(R.id.register_button);
         usernameEt = (EditText) findViewById(R.id.username);
@@ -73,12 +72,12 @@ public class RegisterActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_CODE:
                 Intent intent2 = startPhotoZoom(camera_imageUri);
-                startActivityForResult(intent2, 3);
+                startActivityForResult(intent2, CAMERA_CUT);
                 break;
             case ALBUM_CODE:
                 album_imageUri = data.getData();
                 Intent intent1 = startPhotoZoom(album_imageUri);
-                startActivityForResult(intent1, 4);
+                startActivityForResult(intent1, ALBUM_CUT);
                 break;
             case CAMERA_CUT:
                 new Thread(new Runnable() {
@@ -106,7 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     //上传文件
     private void upload(String path) {

@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
     MyAdapter myAdapter;
     ImgpagerAdapter imgpagerAdapter;
 
+
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -83,8 +84,10 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
         presenter = new WallPaperPresenterImpl(this);
         presenter.queryWallPaper(null);//从后台，查询所有壁纸
         myAdapter = new MyAdapter();
-
+        Message message = new Message();
+        handler.sendMessageDelayed(message,4000);
     }
+
 
     @Override
     public void onDestroy() {
@@ -100,6 +103,7 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                 if(e == null){
                     viewLists.clear();
                     DotLists.clear();
+                    DotViewGroup.removeAllViews();
                     for(Ads ads : list){
                         ImageView imageView = new ImageView(getActivity());
                         Picasso.with(getActivity()).load(ads.getPicture().getFileUrl()).into(imageView);
@@ -145,14 +149,12 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                 startActivity(intent);
             }
         });
-
         viewPager.setOffscreenPageLimit(viewLists.size());
         imgpagerAdapter = new ImgpagerAdapter();
         viewPager.setAdapter(imgpagerAdapter);
         initViewPager();
-        Message message = new Message();
-        handler.sendMessageDelayed(message,4000);
-        viewPager.setCurrentItem(0);
+
+        //viewPager.setCurrentItem(0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

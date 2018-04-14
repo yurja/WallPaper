@@ -65,7 +65,6 @@ public class CategActivity extends AppCompatActivity implements WallPaperView,Se
     @Override
     public void setWallPapaer(List<WallPaper> list) {
         this.list = list;
-
         myAdapter.notifyDataSetChanged();
     }
 

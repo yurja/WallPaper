@@ -71,21 +71,22 @@ public class WallPaperActivity extends AppCompatActivity {
     private void initCollectData() { //查询当当前用户收藏的壁纸
         BmobQuery<WallPaper> query = new BmobQuery<WallPaper>();
         _User user = BmobUser.getCurrentUser(_User.class);
-        collectWallPaperList.clear();
-        query.addWhereRelatedTo("likes",new BmobPointer(user));
-        query.findObjects(new FindListener<WallPaper>() {
-            @Override
-            public void done(List<WallPaper> list, BmobException e) {
-                    if(e==null){
-                    collectWallPaperList.addAll(list);
-                    Log.d("更新","收藏列表");
-                    myAdapter.notifyDataSetChanged();
-                }else{
-                    Log.i("bmob","失败："+e.getMessage());
-                }
 
-            }
-        });
+            collectWallPaperList.clear();
+            query.addWhereRelatedTo("likes", new BmobPointer(user));
+            query.findObjects(new FindListener<WallPaper>() {
+                @Override
+                public void done(List<WallPaper> list, BmobException e) {
+                    if (e == null) {
+                        collectWallPaperList.addAll(list);
+                        Log.d("更新", "收藏列表");
+                        myAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.i("bmob", "失败：" + e.getMessage());
+                    }
+
+                }
+            });
     }
 
     class MyAdapter extends BaseAdapter{
@@ -133,44 +134,46 @@ public class WallPaperActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     _User user = BmobUser.getCurrentUser(_User.class);
-                    WallPaper wp = list.get(position);
-                    BmobRelation relation = new BmobRelation();
-                    if(collectWallPaperList.contains(list.get(position)) == true){
-                        relation.remove(wp);
-                        user.setLikes(relation);
-                        user.update(new UpdateListener() {
-                            @Override
-                            public void done(BmobException e) {
-                                if(e==null){
-                                    Toast.makeText(context,"取消收藏",Toast.LENGTH_SHORT).show();
-                                    collect_wp.setImageResource(R.drawable.collecta);
-                                    initCollectData();
-                                }else{
-                                    Log.i("bmob","失败："+e.getMessage());
+                    if(user!=null) {
+                        WallPaper wp = list.get(position);
+                        BmobRelation relation = new BmobRelation();
+                        if (collectWallPaperList.contains(list.get(position)) == true) {
+                            relation.remove(wp);
+                            user.setLikes(relation);
+                            user.update(new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    if (e == null) {
+                                        Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
+                                        collect_wp.setImageResource(R.drawable.collecta);
+                                        initCollectData();
+                                    } else {
+                                        Log.i("bmob", "失败：" + e.getMessage());
+                                    }
                                 }
-                            }
-                        });
-                    }else {
-                        relation.add(wp);
-                        user.setLikes(relation);
-                        user.update(new UpdateListener() {
-                            @Override
-                            public void done(BmobException e) {
-                                if(e==null){
-                                    Toast.makeText(context,"收藏成功",Toast.LENGTH_SHORT).show();
-                                    collect_wp.setImageResource(R.drawable.collectb);
-                                    initCollectData();
-                                }else{
-                                    Log.i("bmob","失败："+e.getMessage());
+                            });
+                        } else {
+                            relation.add(wp);
+                            user.setLikes(relation);
+                            user.update(new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    if (e == null) {
+                                        Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+                                        collect_wp.setImageResource(R.drawable.collectb);
+                                        initCollectData();
+                                    } else {
+                                        Log.i("bmob", "失败：" + e.getMessage());
+                                    }
                                 }
-                            }
-                        });
+                            });
 
+                        }
+
+
+                    }else{
+                        Toast.makeText(context,"请先进行登录",Toast.LENGTH_SHORT).show();
                     }
-
-
-
-
                 }
             });
             set_wp.setOnClickListener(new View.OnClickListener() {
