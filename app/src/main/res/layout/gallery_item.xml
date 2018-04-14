@@ -3,18 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_gravity="bottom|center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#71fffefe"
+        android:background="#712b2a2a">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <LinearLayout
@@ -24,6 +29,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_marginTop="3dp"
                 android:id="@+id/collect_wp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -34,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
                 android:text="@string/collect_wp"
+                android:textStyle="bold"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -61,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/set_wp"
                 android:layout_gravity="center"
+                android:textStyle="bold"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -73,6 +80,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_marginTop="3dp"
                 android:id="@+id/share_wp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -85,8 +93,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
                 android:text="@string/share_wp"
+                android:textStyle="bold"
                 android:textColor="@color/white" />
         </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

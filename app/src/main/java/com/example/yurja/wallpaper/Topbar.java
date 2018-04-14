@@ -35,7 +35,6 @@ public class Topbar extends RelativeLayout {
 
     public Topbar(Context context) {
         super(context);
-
     }
 
     public Topbar(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -73,14 +72,13 @@ public class Topbar extends RelativeLayout {
 
         setBackgroundColor(0xFFCCCCCC);
 
-        leftParams = new LayoutParams(150,150);
+        leftParams = new LayoutParams(125,125);
         leftParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT,TRUE);
         addView(leftImg,leftParams);
 
         rightParams = new LayoutParams(150,150);
         rightParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,TRUE);
         addView(rightImg,rightParams);
-
 
         titleParams = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
         titleParams.addRule(RelativeLayout.CENTER_IN_PARENT,TRUE);
@@ -105,7 +103,6 @@ public class Topbar extends RelativeLayout {
     }
 
     public interface TopbarClickListener{
-
         void rightClick();
     }
 
