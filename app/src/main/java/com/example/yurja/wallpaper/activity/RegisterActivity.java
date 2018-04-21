@@ -1,4 +1,4 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,7 +19,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.bean._User;
 
 import java.io.File;
 import java.io.IOException;

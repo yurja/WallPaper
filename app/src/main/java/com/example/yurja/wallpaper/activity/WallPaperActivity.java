@@ -1,12 +1,10 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,8 +18,9 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.bean.WallPaper;
+import com.example.yurja.wallpaper.bean._User;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -37,7 +36,6 @@ import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class WallPaperActivity extends AppCompatActivity {

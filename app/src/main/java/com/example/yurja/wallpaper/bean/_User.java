@@ -1,7 +1,5 @@
-package com.example.yurja.wallpaper.bmob_JavaBean;
+package com.example.yurja.wallpaper.bean;
 
-
-import android.provider.ContactsContract;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;

@@ -1,6 +1,6 @@
 package com.example.yurja.wallpaper.wallpaper;
 
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
+import com.example.yurja.wallpaper.bean.WallPaper;
 
 import java.util.List;
 

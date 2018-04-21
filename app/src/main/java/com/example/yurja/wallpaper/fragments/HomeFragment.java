@@ -21,9 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.WallPaperActivity;
-import com.example.yurja.wallpaper.bmob_JavaBean.Ads;
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
+import com.example.yurja.wallpaper.activity.WallPaperActivity;
+import com.example.yurja.wallpaper.bean.Ads;
+import com.example.yurja.wallpaper.bean.WallPaper;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenter;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenterImpl;
 import com.example.yurja.wallpaper.wallpaper.WallPaperView;
@@ -58,14 +58,16 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            int index= viewPager.getCurrentItem();
-            if(index == viewLists.size()-1){
-                viewPager.setCurrentItem(0);
-            }else {
-                viewPager.setCurrentItem(index+1);
+            if(viewPager!= null) {
+                int index = viewPager.getCurrentItem();
+                if (index == viewLists.size() - 1) {
+                    viewPager.setCurrentItem(0);
+                } else {
+                    viewPager.setCurrentItem(index + 1);
+                }
+                Message message = new Message();
+                handler.sendMessageDelayed(message, 4000);
             }
-            Message message = new Message();
-            handler.sendMessageDelayed(message,4000);
         }
     };
 
@@ -101,7 +103,8 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                     DotViewGroup.removeAllViews();
                     for(Ads ads : list){
                         ImageView imageView = new ImageView(getActivity());
-                        Picasso.with(getActivity()).load(ads.getPicture().getFileUrl()).into(imageView);
+                        Picasso.with(getActivity()).load(ads.getPicture().getFileUrl())
+                                .placeholder(R.drawable.place_holder).into(imageView);
                         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                         viewLists.add(imageView);
                         ImageView dot = new ImageView(getActivity());
@@ -199,8 +202,8 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
 
     @Override
     public void setWallPapaer(List<WallPaper> list) {
-        for(int i = list.size()-10;i<list.size();i++){
-            this.list.add(list.get(i));
+        for(int i = 1;i <= 10;i++){ //显示最新上传的10张
+            this.list.add(list.get(list.size()-i));
         }
         myAdapter.notifyDataSetChanged();
     }
@@ -240,13 +243,13 @@ public class HomeFragment extends Fragment implements WallPaperView,Serializable
                 viewHolder = new ViewHolder();
                 viewHolder.imageView = (ImageView) myView.findViewById(R.id.image_view);
                 viewHolder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                viewHolder.wp_name = (TextView) myView.findViewById(R.id.wp_name);
+                //viewHolder.wp_name = (TextView) myView.findViewById(R.id.wp_name);
                 myView.setTag(viewHolder);
             }else {
                 myView = convertView;
                 viewHolder = (ViewHolder) myView.getTag();
             }
-                viewHolder.wp_name.setVisibility(View.GONE);
+//                viewHolder.wp_name.setVisibility(View.GONE);
                 WallPaper wp = list.get(position);
                 String url = wp.getWallpaper().getUrl();
                 //String name = wp.getName();

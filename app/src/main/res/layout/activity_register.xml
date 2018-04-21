@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yurja.wallpaper.RegisterActivity">
+    tools:context="com.example.yurja.wallpaper.activity.RegisterActivity">
 
     <ImageView
         android:id="@+id/image_view"

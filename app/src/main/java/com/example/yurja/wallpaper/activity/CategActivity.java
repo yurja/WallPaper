@@ -1,9 +1,8 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
+import com.example.yurja.wallpaper.bean.WallPaper;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenter;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenterImpl;
 import com.example.yurja.wallpaper.wallpaper.WallPaperView;
@@ -100,16 +99,16 @@ public class CategActivity extends AppCompatActivity implements WallPaperView,Se
             }
             ImageView imageView = (ImageView) myView.findViewById(R.id.image_view);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            TextView wp_name = (TextView)myView.findViewById(R.id.wp_name);
+            //TextView wp_name = (TextView)myView.findViewById(R.id.wp_name);
 
             WallPaper wp = list.get(position);
 
             String url = wp.getWallpaper().getUrl();
-            String name = wp.getName();
+            //String name = wp.getName();
 
             Picasso.with(getApplicationContext()).load(url).into(imageView);
 
-            wp_name.setText(name);
+            //wp_name.setText(name);
 
             return myView;
         }

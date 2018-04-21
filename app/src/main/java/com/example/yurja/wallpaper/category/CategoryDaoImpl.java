@@ -1,6 +1,6 @@
 package com.example.yurja.wallpaper.category;
 
-import com.example.yurja.wallpaper.bmob_JavaBean.Category;
+import com.example.yurja.wallpaper.bean.Category;
 
 import java.util.List;
 

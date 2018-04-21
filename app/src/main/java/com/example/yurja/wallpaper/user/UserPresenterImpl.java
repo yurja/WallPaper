@@ -2,7 +2,7 @@ package com.example.yurja.wallpaper.user;
 
 import android.util.Log;
 
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.bean._User;
 
 /**
  * Created by yurja on 2018/3/17.

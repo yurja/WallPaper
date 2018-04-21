@@ -1,7 +1,5 @@
 package com.example.yurja.wallpaper.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -13,17 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.LoginActivity;
-import com.example.yurja.wallpaper.MainActivity;
+import com.example.yurja.wallpaper.activity.LoginActivity;
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.UserCollectActivity;
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.activity.UserCollectActivity;
+import com.example.yurja.wallpaper.bean._User;
 import com.squareup.picasso.Picasso;
 
 

@@ -1,4 +1,4 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.app.Application;
 

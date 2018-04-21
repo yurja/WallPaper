@@ -1,7 +1,6 @@
-package com.example.yurja.wallpaper.bmob_JavaBean;
+package com.example.yurja.wallpaper.bean;
 
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 
 /**

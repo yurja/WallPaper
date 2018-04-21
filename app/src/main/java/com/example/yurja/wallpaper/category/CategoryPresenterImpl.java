@@ -1,6 +1,6 @@
 package com.example.yurja.wallpaper.category;
 
-import com.example.yurja.wallpaper.bmob_JavaBean.Category;
+import com.example.yurja.wallpaper.bean.Category;
 
 import java.util.List;
 
@@ -26,12 +26,10 @@ public class CategoryPresenterImpl  implements CategoryPresenter,CategoryDao.Cat
     @Override
     public void onSuccess(List<Category> list) {
         categoryView.setCategory(list);
-
     }
 
     @Override
     public void onFail() {
         categoryView.setFail();
-
     }
 }

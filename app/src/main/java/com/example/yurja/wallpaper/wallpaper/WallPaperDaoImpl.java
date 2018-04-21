@@ -2,7 +2,7 @@ package com.example.yurja.wallpaper.wallpaper;
 
 import android.util.Log;
 
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
+import com.example.yurja.wallpaper.bean.WallPaper;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * Created by 李颖佳 on 2018/3/17.
+ * Created by yutja on 2018/3/17.
  */
 
 public class WallPaperDaoImpl implements WallPaperDao{

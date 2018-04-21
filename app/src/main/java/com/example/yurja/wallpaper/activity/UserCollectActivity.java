@@ -1,4 +1,4 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,17 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
-import com.example.yurja.wallpaper.bmob_JavaBean.WallPaper;
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.Topbar;
+import com.example.yurja.wallpaper.bean.WallPaper;
+import com.example.yurja.wallpaper.bean._User;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;

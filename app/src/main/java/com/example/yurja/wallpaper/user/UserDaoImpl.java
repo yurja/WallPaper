@@ -3,7 +3,7 @@ package com.example.yurja.wallpaper.user;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
+import com.example.yurja.wallpaper.bean._User;
 
 import java.util.List;
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.CategActivity;
+import com.example.yurja.wallpaper.activity.CategActivity;
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.bmob_JavaBean.Category;
+import com.example.yurja.wallpaper.bean.Category;
 import com.example.yurja.wallpaper.category.CategoryPresenter;
 import com.example.yurja.wallpaper.category.CategoryPresenterImpl;
 import com.example.yurja.wallpaper.category.CategoryView;
@@ -108,7 +107,8 @@ public class CategFragment extends Fragment implements CategoryView{
             }
             Category category = list.get(position);
             String url = category.getCover().getFileUrl();
-            Picasso.with(getActivity()).load(url).into(viewHolder.imageView);
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.place_holder)
+                    .into(viewHolder.imageView);
             viewHolder.catg_name.setText(category.getName());
             return myView;
         }

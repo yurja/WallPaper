@@ -1,4 +1,4 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.yurja.wallpaper.R;
 import com.example.yurja.wallpaper.fragments.CategFragment;
 import com.example.yurja.wallpaper.fragments.HomeFragment;
 import com.example.yurja.wallpaper.fragments.SharesFragment;
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     PageNavigationView pageNavigationView;
     ViewPager viewPager;
     List<Fragment> fragmentList;
-    //private String uname;
-    //private String upicurl;
     List<String> userinfolist;
 
     @Override

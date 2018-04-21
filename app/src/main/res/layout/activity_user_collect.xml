@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.yurja.wallpaper.UserCollectActivity">
+    tools:context="com.example.yurja.wallpaper.activity.UserCollectActivity">
 
 
    <com.example.yurja.wallpaper.Topbar

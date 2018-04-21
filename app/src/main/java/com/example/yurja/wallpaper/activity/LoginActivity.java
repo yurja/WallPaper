@@ -1,4 +1,4 @@
-package com.example.yurja.wallpaper;
+package com.example.yurja.wallpaper.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yurja.wallpaper.bmob_JavaBean._User;
-import com.example.yurja.wallpaper.user.LoginView;
-import com.example.yurja.wallpaper.user.UserPresenter;
-import com.example.yurja.wallpaper.user.UserPresenterImpl;
+import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.bean._User;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 

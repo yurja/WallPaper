@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.yurja.wallpaper.activity.DeliverActivity">
+
+    <com.example.yurja.wallpaper.Topbar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:LeftBackground="@drawable/back"
+        custom:RightBackground="@drawable/send"
+        custom:TitleTextColor="@color/white"
+        />
+    <EditText
+        android:id="@+id/contentEt"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="介绍一下你的分享图片吧...."/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择图片"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:gravity="center_horizontal"
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
