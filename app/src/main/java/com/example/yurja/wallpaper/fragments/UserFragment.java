@@ -230,17 +230,4 @@ public class UserFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        userinfolist = ((MainActivity) activity).getTitles();
-//        new Thread(new Runnable() { //跳转到主线程更新UI
-//            @Override
-//            public void run() {
-//                Message message = new Message();
-//                handler.sendMessage(message);
-//            }
-//        }).start();
-//    }
-
 }

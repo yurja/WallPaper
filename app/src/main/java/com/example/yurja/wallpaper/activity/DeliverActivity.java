@@ -1,5 +1,6 @@
 package com.example.yurja.wallpaper.activity;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -55,6 +56,7 @@ public class DeliverActivity extends AppCompatActivity {
     RecyclerAdapter adapter;
     RecyclerView recyclerView;
     private List<LocalMedia> selectList;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,9 +184,9 @@ public class DeliverActivity extends AppCompatActivity {
                      for (int i = 0; i <selectList.size() ; i++) {
                          filePaths[i] = selectList.get(i).getCompressPath();
                      }
-                     Toast.makeText(DeliverActivity.this,"发送中...",Toast.LENGTH_LONG).show();
+                     //Toast.makeText(DeliverActivity.this,"发送中...",Toast.LENGTH_LONG).show();
+                     showProgressDialog();
                      BmobFile.uploadBatch(filePaths, new UploadBatchListener() {
-
                          @Override
                          public void onSuccess(List<BmobFile> list, List<String> list1) {
                              if(list1.size()==filePaths.length){//如果数量相等，则代表文件全部上传完成
@@ -194,14 +196,17 @@ public class DeliverActivity extends AppCompatActivity {
                                  pictureMsg.setWriterpicurl(user.getPicture().getFileUrl());
                                  pictureMsg.setContent(content);
                                  pictureMsg.setPictureList(list1);
+                                 pictureMsg.setWriter(user);
                                  pictureMsg.save(new SaveListener<String>() {
                                      @Override
                                      public void done(String s, BmobException e) {
                                          if(e==null){
+                                            closeProgressDialog();
                                              Toast.makeText(DeliverActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
                                              PictureFileUtils.deleteCacheDirFile(DeliverActivity.this);//清除裁剪和压缩后的缓存
                                              finish();
                                          }else{
+                                            closeProgressDialog();
                                              Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                                          }
                                      }
@@ -220,7 +225,7 @@ public class DeliverActivity extends AppCompatActivity {
                          }
                      });
                  }else {
-                     Toast.makeText(DeliverActivity.this,"不能发送空消息",Toast.LENGTH_SHORT).show();
+                     Toast.makeText(DeliverActivity.this,"请选择图片后在上传",Toast.LENGTH_SHORT).show();
                  }
             }
         });
@@ -247,5 +252,29 @@ public class DeliverActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+    /**
+     * 关闭进度对话框
+     */
+    private void closeProgressDialog() {
+        if (progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
+
+    /**
+     * 显示进度对话框
+     */
+    private void showProgressDialog() {
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(DeliverActivity.this);
+            progressDialog.setMessage("发送中...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
+    }
+
 
 }

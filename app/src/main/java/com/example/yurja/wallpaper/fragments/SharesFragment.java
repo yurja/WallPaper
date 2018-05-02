@@ -1,5 +1,6 @@
 package com.example.yurja.wallpaper.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import com.example.yurja.wallpaper.R;
 import com.example.yurja.wallpaper.Topbar;
 import com.example.yurja.wallpaper.activity.DeliverActivity;
+import com.example.yurja.wallpaper.activity.MsgPictureActivity;
+import com.example.yurja.wallpaper.activity.PhotoViewActivity;
 import com.example.yurja.wallpaper.activity.UserCollectActivity;
 import com.example.yurja.wallpaper.bean.PictureMsg;
 import com.example.yurja.wallpaper.bean.WallPaper;
@@ -36,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,14 +67,7 @@ public class SharesFragment extends Fragment implements PictureMsgView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new PictureMsgPresenterImpl(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                presenter.getPictureMsg();
-            }
-        }).start();
-        pictureMsgList = new ArrayList<>();
-        picMsgAdapter = new PicMsgAdapter(pictureMsgList, getActivity());
+
     }
 
     private void setListener() {
@@ -84,12 +81,32 @@ public class SharesFragment extends Fragment implements PictureMsgView {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("shareF","onStart");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.getPictureMsg();
+            }
+        }).start();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_share, container, false);
         topbar = view.findViewById(R.id.topbar);
         topbar.setLeftVisibility(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.getPictureMsg();
+            }
+        }).start();
+        pictureMsgList = new ArrayList<>();
+        picMsgAdapter = new PicMsgAdapter(pictureMsgList, getActivity());
         PictureMsgLV = view.findViewById(R.id.PictureMsgLV);
         PictureMsgLV.setAdapter(picMsgAdapter);
         setListener();
@@ -99,6 +116,7 @@ public class SharesFragment extends Fragment implements PictureMsgView {
 
     @Override
     public void setPictureMsg(List<PictureMsg> list) {
+        pictureMsgList.clear();
         pictureMsgList.addAll(list);
         picMsgAdapter.notifyDataSetChanged();
     }
@@ -130,7 +148,7 @@ public class SharesFragment extends Fragment implements PictureMsgView {
 
         @Override
         public int getCount() {
-            return pictureMsgList.size();
+            return pictureMsgList==null? 0:pictureMsgList.size();
         }
 
         @Override
@@ -213,6 +231,16 @@ public class SharesFragment extends Fragment implements PictureMsgView {
             View view = LayoutInflater.from(context).inflate(R.layout.deliver_recycler_item,
                     parent, false);
             final RecyclerAdapter.ViewHolder holder = new RecyclerAdapter.ViewHolder(view);
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
+                    int position = holder.getAdapterPosition();
+                    intent.putExtra("index",position);
+                    intent.putExtra("PictureUrlLists",(ArrayList)list);
+                    startActivity(intent);
+                }
+            });
             return holder;
         }
 
@@ -220,6 +248,7 @@ public class SharesFragment extends Fragment implements PictureMsgView {
         public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
             Picasso.with(context).load(list.get(position))
                     .placeholder(R.drawable.place_holder).into(holder.imageView);
+
         }
 
         @Override
@@ -244,4 +273,6 @@ public class SharesFragment extends Fragment implements PictureMsgView {
             this.mSpace = space;
         }
     }
+
+
 }

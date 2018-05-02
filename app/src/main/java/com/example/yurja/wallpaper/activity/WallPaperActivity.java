@@ -195,6 +195,7 @@ public class WallPaperActivity extends AppCompatActivity {
                     Toast.makeText(context,"设置成功",Toast.LENGTH_SHORT).show();
                 }
             });
+
             WindowManager wm = (WindowManager) context.getSystemService(context.WINDOW_SERVICE);
 
             DisplayMetrics dm = new DisplayMetrics();

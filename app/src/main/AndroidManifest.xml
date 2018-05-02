@@ -36,13 +36,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CategActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.CategActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.WallPaperActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.UserCollectActivity" />
-        <activity android:name=".activity.DeliverActivity"></activity>
+        <activity android:name=".activity.DeliverActivity" />
+        <activity android:name=".activity.MsgPictureActivity" />
+        <activity android:name=".activity.PhotoViewActivity"></activity>
     </application>
 
 </manifest>

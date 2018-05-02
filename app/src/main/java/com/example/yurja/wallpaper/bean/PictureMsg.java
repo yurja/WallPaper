@@ -15,7 +15,15 @@ public class PictureMsg extends BmobObject {
     private String writerpicurl;
     private String content;
     public List<String> PictureList;
+    public _User writer;
 
+    public _User getWriter() {
+        return writer;
+    }
+
+    public void setWriter(_User writer) {
+        this.writer = writer;
+    }
 
     public String getWritername() {
         return writername;
