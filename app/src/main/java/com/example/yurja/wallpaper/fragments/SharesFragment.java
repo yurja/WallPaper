@@ -1,10 +1,8 @@
 package com.example.yurja.wallpaper.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,34 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.Topbar;
+import com.example.yurja.wallpaper.view.Topbar;
 import com.example.yurja.wallpaper.activity.DeliverActivity;
-import com.example.yurja.wallpaper.activity.MsgPictureActivity;
 import com.example.yurja.wallpaper.activity.PhotoViewActivity;
-import com.example.yurja.wallpaper.activity.UserCollectActivity;
 import com.example.yurja.wallpaper.bean.PictureMsg;
-import com.example.yurja.wallpaper.bean.WallPaper;
-import com.example.yurja.wallpaper.bean._User;
 import com.example.yurja.wallpaper.pictureMsg.PictureMsgPresenter;
 import com.example.yurja.wallpaper.pictureMsg.PictureMsgPresenterImpl;
 import com.example.yurja.wallpaper.pictureMsg.PictureMsgView;
-import com.luck.picture.lib.entity.LocalMedia;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
 
 /**
  * Created by yurja on 2018/3/17.

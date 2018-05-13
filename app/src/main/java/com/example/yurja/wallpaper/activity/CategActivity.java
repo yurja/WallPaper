@@ -9,10 +9,10 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.R;
+import com.example.yurja.wallpaper.view.Topbar;
 import com.example.yurja.wallpaper.bean.WallPaper;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenter;
 import com.example.yurja.wallpaper.wallpaper.WallPaperPresenterImpl;
@@ -25,6 +25,7 @@ import java.util.List;
 
 public class CategActivity extends AppCompatActivity implements WallPaperView,Serializable {
 
+    Topbar topbar;
     GridView gridView;
     List<WallPaper> list;
     MyAdapter myAdapter;
@@ -34,8 +35,9 @@ public class CategActivity extends AppCompatActivity implements WallPaperView,Se
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categ);
-        initData();
         gridView = (GridView) findViewById(R.id.gridview);
+        topbar = findViewById(R.id.topbar);
+        initData();
         myAdapter = new MyAdapter();
         gridView.setAdapter(myAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,6 +61,7 @@ public class CategActivity extends AppCompatActivity implements WallPaperView,Se
         Intent intent = getIntent();
         String cidname = intent.getStringExtra("cidname");
         presenter.queryWallPaper(cidname);
+        topbar.setTitle(cidname);
     }
 
     @Override

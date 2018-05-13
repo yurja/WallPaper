@@ -8,7 +8,7 @@
     tools:context="com.example.yurja.wallpaper.activity.UserCollectActivity">
 
 
-   <com.example.yurja.wallpaper.Topbar
+   <com.example.yurja.wallpaper.view.Topbar
        android:id="@+id/topbar"
        android:layout_width="match_parent"
        android:layout_height="50dp"
@@ -17,7 +17,7 @@
        custom:Title="我的收藏"
        custom:TitleTextColor="@color/white"
        >
-   </com.example.yurja.wallpaper.Topbar>
+   </com.example.yurja.wallpaper.view.Topbar>
 
 
     <android.support.v7.widget.RecyclerView

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.yurja.wallpaper.Topbar
+    <com.example.yurja.wallpaper.view.Topbar
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"

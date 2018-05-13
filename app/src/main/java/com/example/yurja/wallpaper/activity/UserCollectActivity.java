@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.Topbar;
+import com.example.yurja.wallpaper.view.Topbar;
 import com.example.yurja.wallpaper.bean.WallPaper;
 import com.example.yurja.wallpaper.bean._User;
 import com.squareup.picasso.Picasso;

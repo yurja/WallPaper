@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,17 +23,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.yurja.wallpaper.R;
-import com.example.yurja.wallpaper.Topbar;
+import com.example.yurja.wallpaper.view.Topbar;
 import com.example.yurja.wallpaper.bean.PictureMsg;
 import com.example.yurja.wallpaper.bean._User;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import com.squareup.picasso.Picasso;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
